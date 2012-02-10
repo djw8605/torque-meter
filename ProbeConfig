@@ -1,0 +1,58 @@
+<ProbeConfiguration 
+
+    Title1="Runtime Collector Information"
+
+    CollectorHost="rcf-gratia.unl.edu:8880"
+    Comments0="SOAPHost is now replaced with CollectorHost"
+    SOAPHost="rcf-gratia.unl.edu:8880"
+    SSLHost=""
+    SSLRegistrationHost="rcf-gratia.unl.edu:8880"
+
+    CollectorService="/gratia-servlets/rmi" 
+    SSLCollectorService="/gratia-servlets/rmi"
+    RegistrationService="/gratia-registration/register"
+
+    Title2="Probe information and functional configuration"
+
+    ProbeName="Runtime-Jobs:ff.unl.edu" 
+    Comments1="ProbeName used to be spelled 'MeterName'"
+    SiteName="Runtime-Firefly"
+    Grid="OSG"
+    SuppressUnknownVORecords="0"
+    SuppressNoDNRecords="0"
+    SuppressGridLocalRecords="0"
+    EnableProbe="1"
+
+    Title3="Tuning parameter"
+
+    BundleSize="0"
+    MaxPendingFiles="100000"
+    UseSyslog="0"
+
+    LogLevel="2"
+    DebugLevel="0" 
+    LogRotate="14"
+    GratiaExtension="gratia.xml"
+
+    Title4="Authentication Configuration"
+
+    UseSSL="0" 
+    CertificateFile="/etc/grid-security/hostcert.pem"
+    KeyFile="/etc/grid-security/hostkey.pem"
+    UseGratiaCertificates="0"
+       Comments2="If no directory is specified the gratia certificate file will be created in 'WorkingFolder'/certs."
+    GratiaCertificateFile="gratia.probecert.pem"
+    GratiaKeyFile="gratia.probekey.pem"
+    
+
+    Title5="File and directory location"
+
+    VDTSetupFile="MAGIC_VDT_LOCATION/setup.sh"
+    UserVOMapFile="/etc/osg-user-vo-map.txt"
+
+    DataFolder="/var/lib/gratia/data"
+    WorkingFolder="/var/lib/gratia/tmp"
+    LogFolder="/var/log/gratia"
+
+    MapUnknownToGroup="True"
+/>

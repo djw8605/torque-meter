@@ -1,0 +1,1 @@
+*/10 * * * * root sh -c "ulimit -v 1024000; /usr/sbin/torque-meter > /dev/null 2>&1"
