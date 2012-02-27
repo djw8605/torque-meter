@@ -1,6 +1,6 @@
 Name:           torque-meter
-Version:        1.0
-Release:        6%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Gratia probe to collect current running stats.
 
 Group:          Grid/Accounting
@@ -51,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/cron.d/torque-meter-gratia-probe.cron
 
 %changelog
+* Mon Feb 27 2012 Derek Weitzel <dweitzel@cse.unl.edu> - 1.1-1
+- Updating to version 1.1 upstream
+
 * Fri Feb 10 2012 Derek Weitzel <dweitzel@cse.unl.edu> - 1.0-6
 - Fixing cron permissions
 
