@@ -57,7 +57,7 @@ gratia_info = {}
 
 class ParseQstatout(ContentHandler):
     def __init__(self):
-    	self.elementvalue = ''
+        self.elementvalue = ''
         self.j_id = 0
         self.j_owner = ''
         self.j_queue = ''
@@ -68,26 +68,26 @@ class ParseQstatout(ContentHandler):
         self.j_nodes = ''
 
     def startElement(self, name, attrs):
-	if (name == "Resource_List"):
-		pass
+    if (name == "Resource_List"):
+        pass
     def endElement(self,name):
         if (name == "Job_Id") :
-	    self.j_id = (self.elementvalue).split('.')[0]
+        self.j_id = (self.elementvalue).split('.')[0]
         if (name == "Job_Owner") :
-	    self.j_owner = (self.elementvalue).split('@')[0]
+        self.j_owner = (self.elementvalue).split('@')[0]
         if (name == "queue") :
-	    self.j_queue = (self.elementvalue)
+        self.j_queue = (self.elementvalue)
         if (name == "job_state") :
-	    self.j_state = (self.elementvalue)
+        self.j_state = (self.elementvalue)
         if (name == "select") :
-	    self.j_select = (self.elementvalue).split(':')[0]
+        self.j_select = (self.elementvalue).split(':')[0]
         if (name == "nodes") :
-	    self.j_nodes = (self.elementvalue)
+        self.j_nodes = (self.elementvalue)
         if (name == "nodect") :
-	    self.j_nodect = (self.elementvalue)
-	if (name == "Resource_List"):
-	    if(self.j_select > 0):
-		self.j_resources = int(self.j_select)
+        self.j_nodect = (self.elementvalue)
+    if (name == "Resource_List"):
+        if(self.j_select > 0):
+        self.j_resources = int(self.j_select)
             else:
                 j_nodesSpec = self.j_nodes.split(':')
                 j_nodect = 1
@@ -101,50 +101,54 @@ class ParseQstatout(ContentHandler):
                     except ValueError:
                         pass
                 else:
-			try:
-	                    j_nodeppn = 1
-	                    j_nodect = int(j_nodesSpec[0])
-			except:
-                        	pass
+            try:
+                        j_nodeppn = 1
+                        j_nodect = int(j_nodesSpec[0])
+            except:
+                            pass
+            try:
                 self.j_resources = int(j_nodect) * int(j_nodeppn)
-	if (name == "Job") :
-	        if not dict_VObased.has_key(self.j_owner):
-	            dict_VObased[self.j_owner]={'VO':self.j_owner}
+            except:
+                self.j_resources = len(self.j_nodes.split(',')) * int(j_nodeppn)
 
-	        if self.j_state == 'R' and not (dict_VObased[self.j_owner]).has_key('RunningCores'):
-	             dict_VObased[self.j_owner]['RunningCores']=self.j_resources
-		     dict_jobtotals['total_running'] = int(dict_jobtotals['total_running'])+int(self.j_resources)
-	        elif self.j_state == 'R':
-	             dict_VObased[self.j_owner]['RunningCores']=dict_VObased[self.j_owner]['RunningCores']+int(self.j_resources)
-	             dict_jobtotals['total_running'] = int(dict_jobtotals['total_running'])+int(self.j_resources)
+    if (name == "Job") :
+            if not dict_VObased.has_key(self.j_owner):
+                dict_VObased[self.j_owner]={'VO':self.j_owner}
 
-	        elif self.j_state == 'Q' and not (dict_VObased[self.j_owner]).has_key('QueuedCores'):
-	             dict_VObased[self.j_owner]['QueuedCores']=self.j_resources
-		     dict_jobtotals['total_queued'] = int(dict_jobtotals['total_queued'])+int(self.j_resources)
-	        elif self.j_state == 'Q':
-	             dict_VObased[self.j_owner]['QueuedCores']=dict_VObased[self.j_owner]['QueuedCores']+int(self.j_resources)
-	             dict_jobtotals['total_queued'] = int(dict_jobtotals['total_queued'])+int(self.j_resources)
+            if self.j_state == 'R' and not (dict_VObased[self.j_owner]).has_key('RunningCores'):
+                 dict_VObased[self.j_owner]['RunningCores']=self.j_resources
+             dict_jobtotals['total_running'] = int(dict_jobtotals['total_running'])+int(self.j_resources)
+            elif self.j_state == 'R':
+                 dict_VObased[self.j_owner]['RunningCores']=dict_VObased[self.j_owner]['RunningCores']+int(self.j_resources)
+                 dict_jobtotals['total_running'] = int(dict_jobtotals['total_running'])+int(self.j_resources)
 
-	        elif self.j_state == 'E' and not (dict_VObased[self.j_owner]).has_key('ErrorCores'):
-	             dict_VObased[self.j_owner]['ErrorCores']=self.j_resources
-		     dict_jobtotals['total_error'] = int(dict_jobtotals['total_error'])+int(self.j_resources)
-	        elif self.j_state == 'E':
-	             dict_VObased[self.j_owner]['ErrorCores']=dict_VObased[self.j_owner]['ErrorCores']+int(self.j_resources)
-	             dict_jobtotals['total_error'] = int(dict_jobtotals['total_error'])+int(self.j_resources)
+            elif self.j_state == 'Q' and not (dict_VObased[self.j_owner]).has_key('QueuedCores'):
+                 dict_VObased[self.j_owner]['QueuedCores']=self.j_resources
+             dict_jobtotals['total_queued'] = int(dict_jobtotals['total_queued'])+int(self.j_resources)
+            elif self.j_state == 'Q':
+                 dict_VObased[self.j_owner]['QueuedCores']=dict_VObased[self.j_owner]['QueuedCores']+int(self.j_resources)
+                 dict_jobtotals['total_queued'] = int(dict_jobtotals['total_queued'])+int(self.j_resources)
+
+            elif self.j_state == 'E' and not (dict_VObased[self.j_owner]).has_key('ErrorCores'):
+                 dict_VObased[self.j_owner]['ErrorCores']=self.j_resources
+             dict_jobtotals['total_error'] = int(dict_jobtotals['total_error'])+int(self.j_resources)
+            elif self.j_state == 'E':
+                 dict_VObased[self.j_owner]['ErrorCores']=dict_VObased[self.j_owner]['ErrorCores']+int(self.j_resources)
+                 dict_jobtotals['total_error'] = int(dict_jobtotals['total_error'])+int(self.j_resources)
 
 
-	        self.j_id = 0
-	        self.j_owner = ''
-	        self.j_queue = ''
-	        self.j_state = ''
-	        self.j_resources = int(1)
-	        self.j_nodes = 0
-	        self.j_select = 0
-	        self.j_nodes = ''
+            self.j_id = 0
+            self.j_owner = ''
+            self.j_queue = ''
+            self.j_state = ''
+            self.j_resources = int(1)
+            self.j_nodes = 0
+            self.j_select = 0
+            self.j_nodes = ''
 
-	self.elementvalue=''
+    self.elementvalue=''
     def characters(self, chars):
-	self.elementvalue += chars
+    self.elementvalue += chars
 
 
 # #######################################################################
