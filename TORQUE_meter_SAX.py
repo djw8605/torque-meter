@@ -106,7 +106,13 @@ class ParseQstatout(ContentHandler):
                         j_nodect = int(j_nodesSpec[0])
             except:
                             pass
+
+            try:
                 self.j_resources = int(j_nodect) * int(j_nodeppn)
+            except:
+                self.j_resources = len(self.j_nodes.split(',')) * int(j_nodeppn)
+
+
     if (name == "Job") :
             if not dict_VObased.has_key(self.j_owner):
                 dict_VObased[self.j_owner]={'VO':self.j_owner}
