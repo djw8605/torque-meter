@@ -8,7 +8,7 @@ License:        Apache 2.0
 URL:            http://hcc.unl.edu
 
 # To generate source:
-# svn export svn+ssh://dweitzel@hcc-dev.unl.edu/SVNHCC/gratiaprobe torque-meter-1.0 
+# git archive master --format=tar --prefix=torque-meter-1.0/ | gzip >torque-meter-1.0.tar.gz
 Source0:        torque-meter-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
