@@ -93,9 +93,9 @@ class ParseQstatout(ContentHandler):
                 j_nodect = 1
                 j_nodeppn = 1
                 if len(j_nodesSpec) > 1:
-                    j_nodect = j_nodesSpec[0]
                     j_nodeppn = 0
                     try:
+                        j_nodect = int(j_nodesSpec[0])
                         j_nodesSpec[1].index('ppn=')
                         j_nodeppn = j_nodesSpec[1].replace('ppn=', '')
                     except ValueError:
